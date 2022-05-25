@@ -1,0 +1,201 @@
+        /* Fonts */
+        
+        @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        /* Variables */
+        /*  Pseudo-classe :root peut être utile lorsqu'on déclare des propriétés CSS personnalisées globales : */
+        
+         :root {
+            --font-size: 1rem;
+            /* 
+        --nom-propriéré => propriétés personnalisées (custom properties) qui peuvent contenir une valeur qui pourra être réutilisée dans le document grâce à la fonction var. 
+        https://developer.mozilla.org/fr/docs/Web/CSS/--*
+        */
+        }
+        
+        .light-mode {
+            --navbar-color: #222;
+            --navbar-bg-color: #F0F0F0;
+        }
+        
+        .dark-mode {
+            --navbar-color: #FFF;
+            --navbar-bg-color: #000;
+        }
+        /* Reset */
+        
+        * {
+            box-sizing: border-box;
+            /* 
+    :content-box (par défaut) : la bordure se rajoutera à la taille paramétré pour le contenu
+    :border-box = prise en compte de la bordure dans les tailles.
+    */
+            outline: none;
+            /*
+    outline => propriété raccourcie de outline-style, outline-width et outline-color
+    L'ordre des valeurs n'a pas d'importance. 
+    https://developer.mozilla.org/fr/docs/Web/CSS/outline
+    */
+            margin: 0;
+            padding: 0;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        /*Basic style*/
+        
+        body {
+            font-size: var(--font-size);
+            /* On appel la variable --font-size de la custom properties paramétré dans la partie Variables  */
+            font-family: 'Barlow Condensed', sans-serif;
+        }
+        
+        .main-content {
+            padding: 1rem;
+        }
+        /*Navbar*/
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 65px;
+            padding: 10px;
+            color: var(--navbar-color);
+            background: var(--navbar-bg-color);
+        }
+        
+        .navbar_links {
+            display: flex;
+        }
+        
+        .navbar_link {
+            padding: 0 10px;
+        }
+        
+        .navbar_link>a {
+            text-decoration: none;
+            color: var(--navbar-color);
+        }
+        
+        .burger {
+            display: none;
+        }
+        /* Small devices */
+        
+        @media screen and (max-width: 767.99px) {
+            .navbar_links {
+                display: flex;
+                flex-direction: column;
+                width: 0;
+                height: calc(100vh - 65px);
+                /* Pour éviter scroll on supprime 65px en taille pour supprimer l'effet du top:65px */
+                position: absolute;
+                top: 65px;
+                right: 0;
+                background: var(--navbar-bg-color);
+                transition: all .5s ease-in-out;
+            }
+            .navbar_link {
+                transform: translate(101%);
+            }
+            .open-nav .navbar_link {
+                transform: translate(0);
+            }
+            .open-nav .navbar_links {
+                width: 100%;
+            }
+            .navbar_link>a {
+                display: block;
+                padding: 1rem;
+                font-size: 1.6rem;
+                transition: all .4s ease-in-out;
+            }
+            .navbar_link>a:hover {
+                padding-left: 2rem;
+                font-size: 1.6rem;
+                letter-spacing: 5px;
+            }
+            /* Toggle menu*/
+            .burger {
+                display: block;
+                position: relative;
+                padding: 0;
+                width: 45px;
+                height: 45px;
+                border: none;
+                background: transparent;
+                cursor: pointer;
+            }
+            .bar {
+                display: block;
+                width: 45px;
+                height: 4px;
+                background: var(--navbar-color);
+                border-radius: 3px;
+                transition: all .5s ease-in-out;
+            }
+            .open-nav .bar {
+                width: 0;
+                background: transparent;
+            }
+            .open-nav .bar::before {
+                transform: rotate(45deg);
+            }
+            .open-nav .bar::after {
+                transform: rotate(-45deg);
+            }
+            .bar::before,
+            .bar::after {
+                content: "";
+                width: 45px;
+                height: 4px;
+                position: absolute;
+                left: 0;
+                background: var(--navbar-color);
+                border-radius: 3px;
+                transition: all .5s ease-in-out;
+            }
+            .bar::before {
+                transform: translateY(-12px);
+            }
+            .bar::after {
+                transform: translateY(+12px);
+            }
+            /*Animation (small screen) */
+            .open-nav .first {
+                transition: all 1s ease-out
+            }
+            .open-nav .second {
+                transition: all 1.1s ease-out
+            }
+            .open-nav .third {
+                transition: all 1.2s ease-out
+            }
+            .open-nav .fourth {
+                transition: all 1.3s ease-out
+            }
+            .open-nav .fifth {
+                transition: all 1.4s ease-out
+            }
+        }
+        /* Animations */
+        /* medium devices */
+        /* On demande à ce que l'animation soit présente pour tout les écrans ayant au minimum une largeur de 768px */
+        
+        @media screen and (min-width: 768px) {
+            /* "::after" crée un pseudo-élément qui sera le dernier enfant de l'élément sélectionné. */
+            .navbar_link>a::after {
+                display: block;
+                content: "";
+                /* contenu injecté après(after), vide pour prise en compte des after et des before */
+                width: 0;
+                /* car rien de visible after */
+                height: 1px;
+                background: var(--navbar-color);
+                transition: width .4s;
+            }
+            .navbar_link:hover>a::after {
+                width: 100%;
+            }
+        }
