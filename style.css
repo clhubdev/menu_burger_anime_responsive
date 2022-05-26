@@ -58,7 +58,7 @@
         .navbar {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            /* justify-content: space-between; */
             height: 65px;
             padding: 10px;
             color: var(--navbar-color);
