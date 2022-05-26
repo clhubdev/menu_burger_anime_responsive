@@ -57,12 +57,20 @@
         
         .navbar {
             display: flex;
+            flex-direction: row;
             align-items: center;
-            justify-content: space-between;
+            /* justify-content: space-between; */
             height: 65px;
             padding: 10px;
             color: var(--navbar-color);
             background: var(--navbar-bg-color);
+        }
+        
+        #logo {
+            /* position: absolute;
+            top: 0px;
+            left: 1px; */
+            height: 65px;
         }
         
         .navbar_links {
@@ -76,6 +84,14 @@
         .navbar_link>a {
             text-decoration: none;
             color: var(--navbar-color);
+        }
+        
+        #darkModeIcon,
+        #lightModeIcon {
+            display: flex;
+            align-self: right;
+            height: 2.5rem;
+            cursor: pointer;
         }
         
         .burger {
@@ -120,7 +136,6 @@
             .burger {
                 display: block;
                 position: relative;
-                padding: 0;
                 width: 45px;
                 height: 45px;
                 border: none;
